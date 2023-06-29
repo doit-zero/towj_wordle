@@ -9,7 +9,14 @@ function appStart() {
     const displayGameover = () => {
         const div = document.createElement("div");
         div.classList.add('end');
-        div.innerText = "정답~! 게임 끝"
+        div.innerText = "정답~!"
+        document.body.appendChild(div);
+    }
+
+    const displayLoosegame = () => {
+        const div = document.createElement("div")
+        div.classList.add('loose');
+        div.innerText = "틀렸습니다~! 다시 도전하세요~!";
         document.body.appendChild(div);
     }
 
@@ -24,6 +31,7 @@ function appStart() {
         window.removeEventListener("keydown",handleKeydown);
         displayGameover();
         clearInterval(timer);
+
     };
 
     const handleBackspace = () => {
@@ -34,6 +42,13 @@ function appStart() {
         if (index !== 0) index -= 1;
 
     };
+
+    const loosegame = () => {
+        window.removeEventListener("keydown",handleKeydown);
+        displayLoosegame();
+        clearInterval(timer);
+    }
+
 
     const handleEnterKey = () => {
         let 맞은_갯수 = 0;
@@ -48,10 +63,15 @@ function appStart() {
             else  block.style.background = "#787C7E";
             block.style.color = "white";
         }
-
-        if( 맞은_갯수 === 5) gameover();
-        nextLine();
-    }
+        console.log(attempts);
+        if( 맞은_갯수 === 5) {
+            gameover();
+        } else if( attempts === 5) {
+            loosegame();
+        }else  {
+            nextLine();
+        }
+    };
     //로직들
     const handleKeydown = (event) => {// 값을 반화하고 종료 
         const key = event.key.toUpperCase();
@@ -73,7 +93,6 @@ function appStart() {
 
     const handleClick = (event) => {
         const key = event.target.getAttribute('data-key');
-        console.log(key);
         const keyCode = event.keyCode;
         const thisBlock = document.querySelector(`.board-block[data-index='${attempts}${index}']`);
         
