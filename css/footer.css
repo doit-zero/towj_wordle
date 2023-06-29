@@ -1,0 +1,39 @@
+footer{
+    gap: 10px;
+}
+
+.keyboard-row {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px
+}
+
+.keyboard-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 60px;
+    background-color: #d3d6da;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+.keyboard-block_wide{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 82px;
+    height: 60px;
+    background-color: #d3d6da;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.keyboard-block_wide img{
+    width: 30px;
+
+}
