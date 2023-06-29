@@ -9,7 +9,7 @@ function appStart() {
     const displayGameover = () => {
         const div = document.createElement("div");
         div.classList.add('end');
-        div.innerText = "Game Over~!"
+        div.innerText = "정답~! 게임 끝"
         document.body.appendChild(div);
     }
 
@@ -69,23 +69,46 @@ function appStart() {
         }
         
     }
+
+
+    const handleClick = (event) => {
+        const key = event.target.getAttribute('data-key');
+        console.log(key);
+        const keyCode = event.keyCode;
+        const thisBlock = document.querySelector(`.board-block[data-index='${attempts}${index}']`);
+        
+        if(key === 'BACK') handleBackspace();
+
+        else if(index === 5) {
+            if(key === "ENTER") handleEnterKey();
+            else return;
+        }else if(key !== null && key !== 'ENTER'){
+            thisBlock.innerText = key;
+            index ++;
+        }
+        
+    }
+
     const startTimer = () => {
         const 시작_시간 = new Date();
 
         function setTime() {
+            const 일 = new Date().getDate().toString();
+            const 월 = (new Date().getMonth() +1).toString();
+            const 연도 = new Date().getFullYear().toString();
             const 현재_시간 = new Date();
             const 흐른_시간 = new Date(현재_시간 - 시작_시간);
             const 분 = 흐른_시간.getMinutes().toString().padStart(2,"0");
             const 초 = 흐른_시간.getSeconds().toString().padStart(2,"0");
             const timeH1 = document.querySelector(".time");
-            timeH1.innerText = `${분}:${초}`;
+            timeH1.innerText = `${연도}년 ${월}월 ${일}일 ${분}:${초}`;
         }
        timer = setInterval(setTime,1000);
-       console.log(timer);
     };
 
     startTimer();
     window.addEventListener("keydown",handleKeydown);
+    window.addEventListener("click",handleClick);
 }
 
 appStart();
