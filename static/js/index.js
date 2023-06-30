@@ -1,5 +1,3 @@
-const 정답 = "APPLE";
-
 let attempts = 0;
 let index = 0;
 let timer;
@@ -15,7 +13,7 @@ function appStart() {
 
     const displayLoosegame = () => {
         const div = document.createElement("div")
-        div.classList.add('loose');
+        div.classList.add('loose'); 
         div.innerText = "틀렸습니다~! 다시 도전하세요~!";
         document.body.appendChild(div);
     }
@@ -50,8 +48,10 @@ function appStart() {
     }
 
 
-    const handleEnterKey = () => {
+    const handleEnterKey = async() => {
         let 맞은_갯수 = 0;
+        const 응답 = await fetch('/answer'); //fetch라는건 자바스크립가 서버에 요청을 보낸다는거임!! 
+        const 정답 = await 응답.json();
         for(let i=0; i<5; i++){
             const block = document.querySelector(`.board-block[data-index='${attempts}${i}']`);
             const 입력한_글자 = block.innerText;
@@ -63,7 +63,6 @@ function appStart() {
             else  block.style.background = "#787C7E";
             block.style.color = "white";
         }
-        console.log(attempts);
         if( 맞은_갯수 === 5) {
             gameover();
         } else if( attempts === 5) {
